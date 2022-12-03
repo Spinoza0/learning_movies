@@ -9,6 +9,7 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.core.content.ContextCompat;
+import androidx.recyclerview.widget.DiffUtil;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
@@ -16,6 +17,7 @@ import com.spinoza.movies.R;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 public class MoviesAdapter extends RecyclerView.Adapter<MoviesAdapter.MovieViewHolder> {
 
@@ -34,8 +36,11 @@ public class MoviesAdapter extends RecyclerView.Adapter<MoviesAdapter.MovieViewH
     }
 
     public void setMovies(List<Movie> movies) {
+        MoviesDiffUtilCallback diffUtilCallback =
+                new MoviesDiffUtilCallback(this.movies, movies);
+        DiffUtil.DiffResult productDiffResult = DiffUtil.calculateDiff(diffUtilCallback);
         this.movies = movies;
-        notifyDataSetChanged();
+        productDiffResult.dispatchUpdatesTo(this);
     }
 
     @Override
@@ -71,18 +76,15 @@ public class MoviesAdapter extends RecyclerView.Adapter<MoviesAdapter.MovieViewH
         }
         Drawable background = ContextCompat.getDrawable(holder.itemView.getContext(), backgroundId);
         holder.textViewRating.setBackground(background);
-        holder.textViewRating.setText(String.format("%.1f", rating));
+        holder.textViewRating.setText(String.format(Locale.getDefault(),"%.1f", rating));
 
         if (position >= movies.size() - 10 && onReachEndListener != null) {
             onReachEndListener.onReachEnd();
         }
 
-        holder.itemView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if (onMovieClickListener != null) {
-                    onMovieClickListener.onMovieClick(movie);
-                }
+        holder.itemView.setOnClickListener(view -> {
+            if (onMovieClickListener != null) {
+                onMovieClickListener.onMovieClick(movie);
             }
         });
     }

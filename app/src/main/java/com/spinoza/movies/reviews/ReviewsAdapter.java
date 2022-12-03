@@ -8,6 +8,7 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.core.content.ContextCompat;
+import androidx.recyclerview.widget.DiffUtil;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.spinoza.movies.R;
@@ -23,8 +24,11 @@ public class ReviewsAdapter extends RecyclerView.Adapter<ReviewsAdapter.ReviewVi
     private List<Review> reviews = new ArrayList<>();
 
     public void setReviews(List<Review> reviews) {
+        ReviewsDiffUtilCallback diffUtilCallback =
+                new ReviewsDiffUtilCallback(this.reviews, reviews);
+        DiffUtil.DiffResult productDiffResult = DiffUtil.calculateDiff(diffUtilCallback);
         this.reviews = reviews;
-        notifyDataSetChanged();
+        productDiffResult.dispatchUpdatesTo(this);
     }
 
 

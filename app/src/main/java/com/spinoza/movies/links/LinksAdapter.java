@@ -6,9 +6,11 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.DiffUtil;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.spinoza.movies.R;
+import com.spinoza.movies.movies.MoviesDiffUtilCallback;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -24,8 +26,11 @@ public class LinksAdapter extends RecyclerView.Adapter<LinksAdapter.LinkViewHold
     }
 
     public void setLinks(List<Link> links) {
+        LinksDiffUtilCallback diffUtilCallback =
+                new LinksDiffUtilCallback(this.links, links);
+        DiffUtil.DiffResult productDiffResult = DiffUtil.calculateDiff(diffUtilCallback);
         this.links = links;
-        notifyDataSetChanged();
+        productDiffResult.dispatchUpdatesTo(this);
     }
 
     @NonNull
@@ -42,12 +47,9 @@ public class LinksAdapter extends RecyclerView.Adapter<LinksAdapter.LinkViewHold
     public void onBindViewHolder(@NonNull LinkViewHolder holder, int position) {
         Link link = links.get(position);
         holder.textViewLinkName.setText(link.getName());
-        holder.itemView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if (onLinkClickListener != null) {
-                    onLinkClickListener.onLinkClick(link);
-                }
+        holder.itemView.setOnClickListener(view -> {
+            if (onLinkClickListener != null) {
+                onLinkClickListener.onLinkClick(link);
             }
         });
     }
