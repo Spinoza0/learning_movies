@@ -1,6 +1,5 @@
 package com.spinoza.movies;
 
-import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.drawable.Drawable;
@@ -26,7 +25,6 @@ import com.spinoza.movies.reviews.ReviewsAdapter;
 import java.util.List;
 
 public class MovieDetailActivity extends AppCompatActivity {
-    private static final String TAG = "spinoza MovieDetailActivity";
     private static final String EXTRA_MOVIE = "movie";
 
     private MovieDetailViewModel viewModel;
@@ -72,7 +70,6 @@ public class MovieDetailActivity extends AppCompatActivity {
 
         viewModel.loadLinks(movie.getId());
         viewModel.getLinks().observe(this, new Observer<List<Link>>() {
-            @SuppressLint("LongLogTag")
             @Override
             public void onChanged(List<Link> links) {
                 linksAdapter.setLinks(links);

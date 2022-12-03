@@ -1,6 +1,5 @@
 package com.spinoza.movies;
 
-import android.annotation.SuppressLint;
 import android.app.Application;
 import android.util.Log;
 
@@ -68,7 +67,6 @@ public class MovieDetailViewModel extends AndroidViewModel {
                         links.setValue(linkItems);
                     }
                 }, new Consumer<Throwable>() {
-                    @SuppressLint("LongLogTag")
                     @Override
                     public void accept(Throwable throwable) throws Throwable {
                         Log.d(TAG, throwable.toString());
@@ -94,7 +92,6 @@ public class MovieDetailViewModel extends AndroidViewModel {
                         reviews.setValue(reviewItems);
                     }
                 }, new Consumer<Throwable>() {
-                    @SuppressLint("LongLogTag")
                     @Override
                     public void accept(Throwable throwable) throws Throwable {
                         Log.d(TAG, throwable.toString());
@@ -113,7 +110,6 @@ public class MovieDetailViewModel extends AndroidViewModel {
 
                     }
                 }, new Consumer<Throwable>() {
-                    @SuppressLint("LongLogTag")
                     @Override
                     public void accept(Throwable throwable) throws Throwable {
                         Log.d(TAG, throwable.toString());
@@ -131,7 +127,6 @@ public class MovieDetailViewModel extends AndroidViewModel {
 
                     }
                 }, new Consumer<Throwable>() {
-                    @SuppressLint("LongLogTag")
                     @Override
                     public void accept(Throwable throwable) throws Throwable {
                         Log.d(TAG, throwable.toString());

@@ -18,7 +18,6 @@ public class MoviesList {
     private final Context context;
     private final MoviesListShowable moviesModel;
     private final ProgressBar progressBar;
-    private final RecyclerView recyclerViewMovies;
     private final MoviesAdapter moviesAdapter;
 
     public MoviesList(
@@ -30,7 +29,6 @@ public class MoviesList {
         this.context = context;
         this.moviesModel = moviesModel;
         this.progressBar = progressBar;
-        this.recyclerViewMovies = recyclerViewMovies;
         moviesAdapter = new MoviesAdapter();
 
         recyclerViewMovies.setAdapter(moviesAdapter);
