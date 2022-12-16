@@ -1,4 +1,4 @@
-package com.spinoza.movies;
+package com.spinoza.movies.api;
 
 import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava3.RxJava3CallAdapterFactory;
@@ -13,6 +13,4 @@ public class ApiFactory {
             .build();
 
     public static final ApiService apiService = retrofit.create((ApiService.class));
-
-
 }

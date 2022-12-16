@@ -5,24 +5,18 @@ import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Bundle;
-import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
-import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
-import com.spinoza.movies.links.Link;
 import com.spinoza.movies.links.LinksAdapter;
 import com.spinoza.movies.movies.Movie;
-import com.spinoza.movies.reviews.Review;
 import com.spinoza.movies.reviews.ReviewsAdapter;
-
-import java.util.List;
 
 public class MovieDetailActivity extends AppCompatActivity {
     private static final String EXTRA_MOVIE = "movie";
@@ -69,55 +63,29 @@ public class MovieDetailActivity extends AppCompatActivity {
         textViewDescription.setText(movie.getDescription());
 
         viewModel.loadLinks(movie.getId());
-        viewModel.getLinks().observe(this, new Observer<List<Link>>() {
-            @Override
-            public void onChanged(List<Link> links) {
-                linksAdapter.setLinks(links);
-            }
-        });
+        viewModel.getLinks().observe(this, links -> linksAdapter.setLinks(links));
 
         viewModel.getReviews().observe(this,
-                new Observer<List<Review>>() {
-                    @Override
-                    public void onChanged(List<Review> reviewItems) {
-                        reviewsAdapter.setReviews(reviewItems);
-                    }
-                });
+                reviewItems -> reviewsAdapter.setReviews(reviewItems));
         viewModel.loadReviews(movie.getId());
-        viewModel.getFavouriteMovie(movie.getId()).observe(this, new Observer<Movie>() {
-            @Override
-            public void onChanged(Movie movieFromDb) {
-                Drawable star;
-                if (movieFromDb == null) {
-                    star = starOff;
-                    imageViewStar.setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View view) {
-                            viewModel.insertMovie(movie);
-                        }
-                    });
-                } else {
-                    star = starOn;
-                    imageViewStar.setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View view) {
-                            viewModel.removeMovie(movie.getId());
-                        }
-                    });
-                }
-                imageViewStar.setImageDrawable(star);
+        viewModel.getFavouriteMovie(movie.getId()).observe(this, movieFromDb -> {
+            Drawable star;
+            if (movieFromDb == null) {
+                star = starOff;
+                imageViewStar.setOnClickListener(view -> viewModel.insertMovie(movie));
+            } else {
+                star = starOn;
+                imageViewStar.setOnClickListener(view -> viewModel.removeMovie(movie.getId()));
             }
+            imageViewStar.setImageDrawable(star);
         });
 
     }
 
     void setClickListeners() {
-        linksAdapter.setOnLinkClickListener(new LinksAdapter.OnLinkClickListener() {
-            @Override
-            public void onLinkClick(Link link) {
-                Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(link.getUrl()));
-                startActivity(intent);
-            }
+        linksAdapter.setOnLinkClickListener(link -> {
+            Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(link.getUrl()));
+            startActivity(intent);
         });
 
 

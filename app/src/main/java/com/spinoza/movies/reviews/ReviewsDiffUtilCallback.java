@@ -2,8 +2,6 @@ package com.spinoza.movies.reviews;
 
 import androidx.recyclerview.widget.DiffUtil;
 
-import com.spinoza.movies.links.Link;
-
 import java.util.List;
 
 public class ReviewsDiffUtilCallback extends DiffUtil.Callback {

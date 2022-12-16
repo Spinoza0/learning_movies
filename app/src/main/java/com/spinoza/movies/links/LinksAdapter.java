@@ -10,7 +10,6 @@ import androidx.recyclerview.widget.DiffUtil;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.spinoza.movies.R;
-import com.spinoza.movies.movies.MoviesDiffUtilCallback;
 
 import java.util.ArrayList;
 import java.util.List;

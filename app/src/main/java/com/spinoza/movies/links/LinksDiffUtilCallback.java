@@ -2,8 +2,6 @@ package com.spinoza.movies.links;
 
 import androidx.recyclerview.widget.DiffUtil;
 
-import com.spinoza.movies.movies.Movie;
-
 import java.util.List;
 
 public class LinksDiffUtilCallback extends DiffUtil.Callback {

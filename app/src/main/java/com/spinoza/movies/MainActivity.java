@@ -11,14 +11,10 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.spinoza.movies.movies.Movie;
-import com.spinoza.movies.movies.MoviesAdapter;
-
 public class MainActivity extends AppCompatActivity {
 
     private ProgressBar progressBar;
     private RecyclerView recyclerViewMovies;
-    private MoviesList moviesList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,19 +23,16 @@ public class MainActivity extends AppCompatActivity {
         initViews();
 
         MainViewModel viewModel = new ViewModelProvider(this).get(MainViewModel.class);
-        moviesList = new MoviesList(
+        MoviesList moviesList = new MoviesList(
                 this,
                 viewModel,
                 progressBar,
                 recyclerViewMovies,
-                new MoviesAdapter.OnMovieClickListener() {
-                    @Override
-                    public void onMovieClick(Movie movie) {
-                        Intent intent = MovieDetailActivity.newIntent(
-                                MainActivity.this,
-                                movie);
-                        startActivity(intent);
-                    }
+                movie -> {
+                    Intent intent = MovieDetailActivity.newIntent(
+                            MainActivity.this,
+                            movie);
+                    startActivity(intent);
                 });
         moviesList.setContent();
 

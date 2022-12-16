@@ -1,4 +1,4 @@
-package com.spinoza.movies;
+package com.spinoza.movies.api;
 
 import com.spinoza.movies.links.LinkResponse;
 import com.spinoza.movies.movies.MoviesResponse;

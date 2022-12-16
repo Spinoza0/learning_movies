@@ -76,7 +76,7 @@ public class MoviesAdapter extends RecyclerView.Adapter<MoviesAdapter.MovieViewH
         }
         Drawable background = ContextCompat.getDrawable(holder.itemView.getContext(), backgroundId);
         holder.textViewRating.setBackground(background);
-        holder.textViewRating.setText(String.format(Locale.getDefault(),"%.1f", rating));
+        holder.textViewRating.setText(String.format(Locale.getDefault(), "%.1f", rating));
 
         if (position >= movies.size() - 10 && onReachEndListener != null) {
             onReachEndListener.onReachEnd();

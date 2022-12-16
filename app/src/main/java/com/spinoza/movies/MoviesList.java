@@ -5,14 +5,10 @@ import android.view.View;
 import android.widget.ProgressBar;
 
 import androidx.lifecycle.LifecycleOwner;
-import androidx.lifecycle.Observer;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.spinoza.movies.movies.Movie;
 import com.spinoza.movies.movies.MoviesAdapter;
-
-import java.util.List;
 
 public class MoviesList {
     private final Context context;
@@ -38,30 +34,12 @@ public class MoviesList {
     }
 
     public void setContent() {
-        moviesModel.getMovies().observe((LifecycleOwner) context, new Observer<List<Movie>>() {
-            @Override
-            public void onChanged(List<Movie> movies) {
-                moviesAdapter.setMovies(movies);
-            }
-        });
+        moviesModel.getMovies().observe((LifecycleOwner) context, moviesAdapter::setMovies);
 
-        moviesModel.getIsLoading().observe((LifecycleOwner) context, new Observer<Boolean>() {
-            @Override
-            public void onChanged(Boolean isLoading) {
-                if (isLoading) {
-                    progressBar.setVisibility(View.VISIBLE);
-                } else {
-                    progressBar.setVisibility(View.GONE);
-                }
-            }
-        });
+        moviesModel.getIsLoading().observe((LifecycleOwner) context, isLoading ->
+                progressBar.setVisibility(isLoading ? View.VISIBLE : View.GONE));
 
-        moviesAdapter.setOnReachEndListener(new MoviesAdapter.OnReachEndListener() {
-            @Override
-            public void onReachEnd() {
-                moviesModel.loadMovies();
-            }
-        });
+        moviesAdapter.setOnReachEndListener(moviesModel::loadMovies);
     }
 
 }
