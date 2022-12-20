@@ -67,7 +67,7 @@ public class LinksAdapter extends RecyclerView.Adapter<LinksAdapter.LinkViewHold
 
         public LinkViewHolder(@NonNull View itemView) {
             super(itemView);
-            textViewLinkName = itemView.findViewById(R.id.textViewLinkName);
+            textViewLinkName = itemView.findViewById(R.id.textViewName);
         }
     }
 }

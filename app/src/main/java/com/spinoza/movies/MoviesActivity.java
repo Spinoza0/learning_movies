@@ -4,30 +4,28 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.ProgressBar;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.ViewModelProvider;
-import androidx.recyclerview.widget.RecyclerView;
+
+import com.spinoza.movies.databinding.ActivityMoviesBinding;
 
 public class MoviesActivity extends AppCompatActivity {
-
-    private ProgressBar progressBar;
-    private RecyclerView recyclerViewMovies;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_movies);
-        initViews();
+        ActivityMoviesBinding binding = ActivityMoviesBinding
+                .inflate(getLayoutInflater());
+        setContentView(binding.getRoot());
 
         MoviesViewModel viewModel = new ViewModelProvider(this).get(MoviesViewModel.class);
-        MoviesList moviesList = new MoviesList(
+        new MoviesList(
                 this,
                 viewModel,
-                progressBar,
-                recyclerViewMovies,
+                binding.progressBar,
+                binding.recyclerViewMovies,
                 movie -> {
                     Intent intent = MovieDetailActivity.newIntent(
                             MoviesActivity.this,
@@ -35,12 +33,6 @@ public class MoviesActivity extends AppCompatActivity {
                     startActivity(intent);
                 }
         );
-        moviesList.setContent();
-    }
-
-    private void initViews() {
-        recyclerViewMovies = findViewById(R.id.recyclerViewMovies);
-        progressBar = findViewById(R.id.progressBar);
     }
 
     @Override

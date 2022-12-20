@@ -11,29 +11,20 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.spinoza.movies.movies.MoviesAdapter;
 
 public class MoviesList {
-    private final Context context;
-    private final MoviesListShowable moviesModel;
-    private final ProgressBar progressBar;
-    private final MoviesAdapter moviesAdapter;
-
     public MoviesList(
             Context context,
             MoviesListShowable moviesModel,
             ProgressBar progressBar,
             RecyclerView recyclerViewMovies,
             MoviesAdapter.OnMovieClickListener onMovieClickListener) {
-        this.context = context;
-        this.moviesModel = moviesModel;
-        this.progressBar = progressBar;
-        moviesAdapter = new MoviesAdapter();
+
+        MoviesAdapter moviesAdapter = new MoviesAdapter();
 
         recyclerViewMovies.setAdapter(moviesAdapter);
         recyclerViewMovies.setLayoutManager(new GridLayoutManager(context, 2));
 
         moviesAdapter.setOnMovieClickListener(onMovieClickListener);
-    }
 
-    public void setContent() {
         moviesModel
                 .getMovies()
                 .observe((LifecycleOwner) context, moviesAdapter::setMovies);

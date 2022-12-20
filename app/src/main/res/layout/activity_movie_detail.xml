@@ -20,7 +20,7 @@
             tools:src="@tools:sample/avatars" />
 
         <TextView
-            android:id="@+id/textViewLinkName"
+            android:id="@+id/textViewName"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:padding="8dp"
@@ -36,7 +36,7 @@
             android:padding="8dp"
             android:textColor="@android:color/holo_orange_dark"
             android:textSize="16sp"
-            app:layout_constraintTop_toBottomOf="@id/textViewLinkName"
+            app:layout_constraintTop_toBottomOf="@id/textViewName"
             tools:text="1988" />
 
         <TextView
@@ -74,7 +74,8 @@
             app:layout_constraintBottom_toBottomOf="@id/imageViewPoster"
             app:layout_constraintEnd_toEndOf="@id/imageViewPoster"
             app:layout_constraintTop_toBottomOf="@id/imageViewPoster"
-            tools:srcCompat="@android:drawable/btn_star_big_on" />
+            tools:srcCompat="@android:drawable/btn_star_big_on"
+            android:contentDescription="@string/star" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
