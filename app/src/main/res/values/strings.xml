@@ -3,4 +3,6 @@
     <string name="poster_image">Poster image</string>
     <string name="image_poster">Image poster</string>
     <string name="item_favourite">Избранное</string>
+    <string name="play">Play</string>
+    <string name="star">Star</string>
 </resources>
