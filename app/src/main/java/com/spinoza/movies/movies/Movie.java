@@ -12,21 +12,26 @@ import java.io.Serializable;
 public class Movie implements Serializable {
     @PrimaryKey
     @SerializedName("id")
-    private int id;
+    private final int id;
     @SerializedName("name")
-    private String name;
+    private final String name;
     @SerializedName("year")
-    private int year;
+    private final int year;
     @SerializedName("description")
-    private String description;
+    private final String description;
     @SerializedName("poster")
     @Embedded
-    private Poster poster;
+    private final Poster poster;
     @SerializedName("rating")
     @Embedded
-    private Rating rating;
+    private final Rating rating;
 
-    public Movie(int id, int year, String name, String description, Poster poster, Rating rating) {
+    public Movie(int id,
+                 int year,
+                 String name,
+                 String description,
+                 Poster poster,
+                 Rating rating) {
         this.id = id;
         this.year = year;
         this.name = name;
@@ -57,17 +62,5 @@ public class Movie implements Serializable {
 
     public Rating getRating() {
         return rating;
-    }
-
-    @Override
-    public String toString() {
-        return "Movie{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                ", year=" + year +
-                ", description='" + description + '\'' +
-                ", poster=" + poster +
-                ", rating=" + rating +
-                '}';
     }
 }

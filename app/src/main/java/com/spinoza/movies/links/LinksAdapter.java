@@ -27,9 +27,9 @@ public class LinksAdapter extends RecyclerView.Adapter<LinksAdapter.LinkViewHold
     public void setLinks(List<Link> links) {
         LinksDiffUtilCallback diffUtilCallback =
                 new LinksDiffUtilCallback(this.links, links);
-        DiffUtil.DiffResult productDiffResult = DiffUtil.calculateDiff(diffUtilCallback);
+        DiffUtil.DiffResult diffResult = DiffUtil.calculateDiff(diffUtilCallback);
         this.links = links;
-        productDiffResult.dispatchUpdatesTo(this);
+        diffResult.dispatchUpdatesTo(this);
     }
 
     @NonNull
@@ -53,13 +53,13 @@ public class LinksAdapter extends RecyclerView.Adapter<LinksAdapter.LinkViewHold
         });
     }
 
-    public interface OnLinkClickListener {
-        void onLinkClick(Link link);
-    }
-
     @Override
     public int getItemCount() {
         return links.size();
+    }
+
+    public interface OnLinkClickListener {
+        void onLinkClick(Link link);
     }
 
     static class LinkViewHolder extends RecyclerView.ViewHolder {

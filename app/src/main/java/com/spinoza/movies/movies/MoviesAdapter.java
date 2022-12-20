@@ -22,10 +22,8 @@ import java.util.Locale;
 public class MoviesAdapter extends RecyclerView.Adapter<MoviesAdapter.MovieViewHolder> {
 
     private List<Movie> movies = new ArrayList<>();
-
     private OnReachEndListener onReachEndListener;
     private OnMovieClickListener onMovieClickListener;
-
 
     public void setOnReachEndListener(OnReachEndListener onReachEndListener) {
         this.onReachEndListener = onReachEndListener;
@@ -38,9 +36,9 @@ public class MoviesAdapter extends RecyclerView.Adapter<MoviesAdapter.MovieViewH
     public void setMovies(List<Movie> movies) {
         MoviesDiffUtilCallback diffUtilCallback =
                 new MoviesDiffUtilCallback(this.movies, movies);
-        DiffUtil.DiffResult productDiffResult = DiffUtil.calculateDiff(diffUtilCallback);
+        DiffUtil.DiffResult diffResult = DiffUtil.calculateDiff(diffUtilCallback);
         this.movies = movies;
-        productDiffResult.dispatchUpdatesTo(this);
+        diffResult.dispatchUpdatesTo(this);
     }
 
     @Override
@@ -100,7 +98,6 @@ public class MoviesAdapter extends RecyclerView.Adapter<MoviesAdapter.MovieViewH
     static class MovieViewHolder extends RecyclerView.ViewHolder {
         private final ImageView imageViewPoster;
         private final TextView textViewRating;
-
 
         public MovieViewHolder(@NonNull View itemView) {
             super(itemView);

@@ -16,28 +16,28 @@ import java.util.List;
 import io.reactivex.rxjava3.disposables.CompositeDisposable;
 
 public class FavouriteMoviesViewModel extends AndroidViewModel implements MoviesListShowable {
-    private static final String TAG = "FavouriteMoviesViewModel";
-
     private final MovieDao movieDao;
 
-    private CompositeDisposable compositeDisposable = new CompositeDisposable();
+    private final CompositeDisposable compositeDisposable = new CompositeDisposable();
 
-    private MutableLiveData<Boolean> isLoading = new MutableLiveData<>();
+    private final MutableLiveData<Boolean> isLoading = new MutableLiveData<>();
 
     public FavouriteMoviesViewModel(@NonNull Application application) {
         super(application);
         movieDao = MovieDatabase.getInstance(application).movieDao();
-        loadMovies();
     }
 
+    @Override
     public LiveData<List<Movie>> getMovies() {
         return movieDao.getAllFavouriteMovies();
     }
 
-    public MutableLiveData<Boolean> getIsLoading() {
+    @Override
+    public LiveData<Boolean> getIsLoading() {
         return isLoading;
     }
 
+    @Override
     public void loadMovies() {
     }
 

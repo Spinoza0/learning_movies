@@ -5,14 +5,7 @@ import com.google.gson.annotations.SerializedName;
 public class LinkResponse {
 
     @SerializedName("watchability")
-    private LinkItemsList linkItemsList;
-
-    @Override
-    public String toString() {
-        return "LinkResponse{" +
-                "linkItemsList=" + linkItemsList +
-                '}';
-    }
+    private final LinkItemsList linkItemsList;
 
     public LinkItemsList getLinkItemsList() {
         return linkItemsList;

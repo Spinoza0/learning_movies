@@ -6,17 +6,9 @@ import java.io.Serializable;
 
 public class Link implements Serializable {
     @SerializedName("name")
-    private String name;
+    private final String name;
     @SerializedName("url")
-    private String url;
-
-    @Override
-    public String toString() {
-        return "Link{" +
-                "name='" + name + '\'' +
-                ", url='" + url + '\'' +
-                '}';
-    }
+    private final String url;
 
     public String getName() {
         return name;

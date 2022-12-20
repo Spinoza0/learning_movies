@@ -18,7 +18,7 @@ import io.reactivex.rxjava3.disposables.CompositeDisposable;
 import io.reactivex.rxjava3.disposables.Disposable;
 import io.reactivex.rxjava3.schedulers.Schedulers;
 
-public class MainViewModel extends AndroidViewModel implements MoviesListShowable {
+public class MoviesViewModel extends AndroidViewModel implements MoviesListShowable {
 
     private static final String TAG = "MainViewModel";
 
@@ -36,7 +36,7 @@ public class MainViewModel extends AndroidViewModel implements MoviesListShowabl
         return isLoading;
     }
 
-    public MainViewModel(@NonNull Application application) {
+    public MoviesViewModel(@NonNull Application application) {
         super(application);
         loadMovies();
     }
@@ -58,7 +58,7 @@ public class MainViewModel extends AndroidViewModel implements MoviesListShowabl
                             movies.setValue(moviesResponse.getMovies());
                         }
                         page++;
-                    }, throwable -> Log.d(TAG, throwable.toString()));
+                    }, throwable -> Log.e(TAG, throwable.toString()));
             compositeDisposable.add(disposable);
         }
     }

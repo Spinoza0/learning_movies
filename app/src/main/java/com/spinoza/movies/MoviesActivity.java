@@ -11,7 +11,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.RecyclerView;
 
-public class MainActivity extends AppCompatActivity {
+public class MoviesActivity extends AppCompatActivity {
 
     private ProgressBar progressBar;
     private RecyclerView recyclerViewMovies;
@@ -19,10 +19,10 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_movies);
         initViews();
 
-        MainViewModel viewModel = new ViewModelProvider(this).get(MainViewModel.class);
+        MoviesViewModel viewModel = new ViewModelProvider(this).get(MoviesViewModel.class);
         MoviesList moviesList = new MoviesList(
                 this,
                 viewModel,
@@ -30,12 +30,12 @@ public class MainActivity extends AppCompatActivity {
                 recyclerViewMovies,
                 movie -> {
                     Intent intent = MovieDetailActivity.newIntent(
-                            MainActivity.this,
+                            MoviesActivity.this,
                             movie);
                     startActivity(intent);
-                });
+                }
+        );
         moviesList.setContent();
-
     }
 
     private void initViews() {

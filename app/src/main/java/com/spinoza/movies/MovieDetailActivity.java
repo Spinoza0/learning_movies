@@ -63,32 +63,39 @@ public class MovieDetailActivity extends AppCompatActivity {
         textViewDescription.setText(movie.getDescription());
 
         viewModel.loadLinks(movie.getId());
-        viewModel.getLinks().observe(this, links -> linksAdapter.setLinks(links));
+        viewModel.getLinks().observe(this, links ->
+                linksAdapter.setLinks(links)
+        );
 
         viewModel.getReviews().observe(this,
                 reviewItems -> reviewsAdapter.setReviews(reviewItems));
         viewModel.loadReviews(movie.getId());
-        viewModel.getFavouriteMovie(movie.getId()).observe(this, movieFromDb -> {
-            Drawable star;
-            if (movieFromDb == null) {
-                star = starOff;
-                imageViewStar.setOnClickListener(view -> viewModel.insertMovie(movie));
-            } else {
-                star = starOn;
-                imageViewStar.setOnClickListener(view -> viewModel.removeMovie(movie.getId()));
-            }
-            imageViewStar.setImageDrawable(star);
-        });
+        viewModel.getFavouriteMovie(movie.getId()).observe(this,
+                movieFromDb -> {
+                    Drawable star;
+                    if (movieFromDb == null) {
+                        star = starOff;
+                        imageViewStar.setOnClickListener(view -> viewModel.insertMovie(movie));
+                    } else {
+                        star = starOn;
+                        imageViewStar.setOnClickListener(view ->
+                                viewModel.removeMovie(movie.getId())
+                        );
+                    }
+                    imageViewStar.setImageDrawable(star);
+                });
 
     }
 
     void setClickListeners() {
         linksAdapter.setOnLinkClickListener(link -> {
-            Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(link.getUrl()));
-            startActivity(intent);
-        });
-
-
+                    Intent intent = new Intent(
+                            Intent.ACTION_VIEW,
+                            Uri.parse(link.getUrl())
+                    );
+                    startActivity(intent);
+                }
+        );
     }
 
     private void initViews() {

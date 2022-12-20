@@ -4,13 +4,13 @@ import com.google.gson.annotations.SerializedName;
 
 public class Review {
     @SerializedName("title")
-    private String title;
+    private final String title;
     @SerializedName("type")
-    private String type;
+    private final String type;
     @SerializedName("review")
-    private String review;
+    private final String review;
     @SerializedName("author")
-    private String author;
+    private final String author;
 
     public Review(String title, String type, String review, String author) {
         this.title = title;
@@ -33,15 +33,5 @@ public class Review {
 
     public String getAuthor() {
         return author;
-    }
-
-    @Override
-    public String toString() {
-        return "Review{" +
-                "title='" + title + '\'' +
-                ", type='" + type + '\'' +
-                ", review='" + review + '\'' +
-                ", author='" + author + '\'' +
-                '}';
     }
 }

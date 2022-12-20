@@ -63,7 +63,7 @@ public class MovieDetailViewModel extends AndroidViewModel {
                 .observeOn(AndroidSchedulers.mainThread())
                 .map(ReviewsResponse::getReviews)
                 .subscribe(reviews::setValue,
-                        throwable -> Log.d(TAG, throwable.toString())
+                        throwable -> Log.e(TAG, throwable.toString())
                 );
 
         compositeDisposable.add(disposable);
@@ -73,7 +73,7 @@ public class MovieDetailViewModel extends AndroidViewModel {
         Disposable disposable = movieDao.insertMovie(movie)
                 .subscribeOn(Schedulers.io())
                 .subscribe(() -> {
-                }, throwable -> Log.d(TAG, throwable.toString()));
+                }, throwable -> Log.e(TAG, throwable.toString()));
         compositeDisposable.add(disposable);
     }
 
@@ -81,7 +81,7 @@ public class MovieDetailViewModel extends AndroidViewModel {
         Disposable disposable = movieDao.removeMovie(movieId)
                 .subscribeOn(Schedulers.io())
                 .subscribe(() -> {
-                }, throwable -> Log.d(TAG, throwable.toString()));
+                }, throwable -> Log.e(TAG, throwable.toString()));
         compositeDisposable.add(disposable);
     }
 

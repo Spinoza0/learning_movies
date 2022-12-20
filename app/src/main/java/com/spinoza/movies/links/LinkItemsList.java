@@ -6,14 +6,7 @@ import java.util.List;
 
 public class LinkItemsList {
     @SerializedName("items")
-    private List<Link> items;
-
-    @Override
-    public String toString() {
-        return "LinkItemsList{" +
-                "items=" + items +
-                '}';
-    }
+    private final List<Link> items;
 
     public List<Link> getItems() {
         return items;

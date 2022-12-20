@@ -6,7 +6,7 @@ import java.io.Serializable;
 
 public class Poster implements Serializable {
     @SerializedName("url")
-    private String url;
+    private final String url;
 
     public Poster(String url) {
         this.url = url;
@@ -14,12 +14,5 @@ public class Poster implements Serializable {
 
     public String getUrl() {
         return url;
-    }
-
-    @Override
-    public String toString() {
-        return "Poster{" +
-                "url='" + url + '\'' +
-                '}';
     }
 }

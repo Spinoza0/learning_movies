@@ -7,7 +7,7 @@ import java.util.List;
 public class MoviesResponse {
 
     @SerializedName("docs")
-    private List<Movie> movies;
+    private final List<Movie> movies;
 
     public List<Movie> getMovies() {
         return movies;
@@ -15,12 +15,5 @@ public class MoviesResponse {
 
     public MoviesResponse(List<Movie> movies) {
         this.movies = movies;
-    }
-
-    @Override
-    public String toString() {
-        return "MoviesResponse{" +
-                "movies=" + movies +
-                '}';
     }
 }

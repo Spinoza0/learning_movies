@@ -34,12 +34,14 @@ public class MoviesList {
     }
 
     public void setContent() {
-        moviesModel.getMovies().observe((LifecycleOwner) context, moviesAdapter::setMovies);
-
-        moviesModel.getIsLoading().observe((LifecycleOwner) context, isLoading ->
-                progressBar.setVisibility(isLoading ? View.VISIBLE : View.GONE));
-
+        moviesModel
+                .getMovies()
+                .observe((LifecycleOwner) context, moviesAdapter::setMovies);
+        moviesModel
+                .getIsLoading()
+                .observe((LifecycleOwner) context, isLoading ->
+                        progressBar.setVisibility(isLoading ?
+                                View.VISIBLE : View.GONE));
         moviesAdapter.setOnReachEndListener(moviesModel::loadMovies);
     }
-
 }
