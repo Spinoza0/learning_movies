@@ -69,11 +69,11 @@ public class MovieDetailActivity extends AppCompatActivity {
 
         viewModel.loadLinks(movie.getId());
         viewModel.getLinks().observe(this, links ->
-                linksAdapter.setLinks(links)
+                linksAdapter.submitList(links)
         );
 
         viewModel.getReviews().observe(this,
-                reviewItems -> reviewsAdapter.setReviews(reviewItems));
+                reviewItems -> reviewsAdapter.submitList(reviewItems));
         viewModel.loadReviews(movie.getId());
 
         Drawable starOff = ContextCompat.getDrawable(

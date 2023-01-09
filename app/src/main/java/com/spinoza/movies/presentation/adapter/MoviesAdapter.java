@@ -4,27 +4,25 @@ import android.graphics.drawable.Drawable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
-import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.core.content.ContextCompat;
-import androidx.recyclerview.widget.DiffUtil;
-import androidx.recyclerview.widget.RecyclerView;
+import androidx.recyclerview.widget.ListAdapter;
 
 import com.bumptech.glide.Glide;
 import com.spinoza.movies.R;
 import com.spinoza.movies.domain.movies.Movie;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Locale;
 
-public class MoviesAdapter extends RecyclerView.Adapter<MoviesAdapter.MovieViewHolder> {
+public class MoviesAdapter extends ListAdapter<Movie, MovieViewHolder> {
 
-    private List<Movie> movies = new ArrayList<>();
     private OnReachEndListener onReachEndListener;
     private OnMovieClickListener onMovieClickListener;
+
+    public MoviesAdapter() {
+        super(new MovieDiffCallback());
+    }
 
     public void setOnReachEndListener(OnReachEndListener onReachEndListener) {
         this.onReachEndListener = onReachEndListener;
@@ -32,19 +30,6 @@ public class MoviesAdapter extends RecyclerView.Adapter<MoviesAdapter.MovieViewH
 
     public void setOnMovieClickListener(OnMovieClickListener onMovieClickListener) {
         this.onMovieClickListener = onMovieClickListener;
-    }
-
-    public void setMovies(List<Movie> movies) {
-        DiffUtilCallback diffUtilCallback =
-                new DiffUtilCallback(this.movies, movies);
-        DiffUtil.DiffResult diffResult = DiffUtil.calculateDiff(diffUtilCallback);
-        this.movies = movies;
-        diffResult.dispatchUpdatesTo(this);
-    }
-
-    @Override
-    public int getItemCount() {
-        return movies.size();
     }
 
     @NonNull
@@ -59,7 +44,7 @@ public class MoviesAdapter extends RecyclerView.Adapter<MoviesAdapter.MovieViewH
 
     @Override
     public void onBindViewHolder(@NonNull MovieViewHolder holder, int position) {
-        Movie movie = movies.get(position);
+        Movie movie = getItem(position);
         Glide.with(holder.itemView)
                 .load(movie.getPoster().getUrl())
                 .into(holder.imageViewPoster);
@@ -77,7 +62,7 @@ public class MoviesAdapter extends RecyclerView.Adapter<MoviesAdapter.MovieViewH
         holder.textViewRating.setBackground(background);
         holder.textViewRating.setText(String.format(Locale.getDefault(), "%.1f", rating));
 
-        if (position >= movies.size() - 10 && onReachEndListener != null) {
+        if (position >= getItemCount() - 10 && onReachEndListener != null) {
             onReachEndListener.onReachEnd();
         }
 
@@ -94,52 +79,5 @@ public class MoviesAdapter extends RecyclerView.Adapter<MoviesAdapter.MovieViewH
 
     public interface OnMovieClickListener {
         void onMovieClick(Movie movie);
-    }
-
-    private static class DiffUtilCallback extends DiffUtil.Callback {
-        private final List<Movie> oldList;
-        private final List<Movie> newList;
-
-        public DiffUtilCallback(List<Movie> oldList, List<Movie> newList) {
-            this.oldList = oldList;
-            this.newList = newList;
-        }
-
-        @Override
-        public int getOldListSize() {
-            return oldList.size();
-        }
-
-        @Override
-        public int getNewListSize() {
-            return newList.size();
-        }
-
-        @Override
-        public boolean areItemsTheSame(int oldItemPosition, int newItemPosition) {
-            Movie oldItem = oldList.get(oldItemPosition);
-            Movie newItem = newList.get(newItemPosition);
-            return oldItem.getId() == newItem.getId();
-        }
-
-        @Override
-        public boolean areContentsTheSame(int oldItemPosition, int newItemPosition) {
-            Movie oldItem = oldList.get(oldItemPosition);
-            Movie newItem = newList.get(newItemPosition);
-            return oldItem.getYear() == newItem.getYear() &&
-                    oldItem.getName().equals(newItem.getName()) &&
-                    oldItem.getDescription().equals(newItem.getDescription());
-        }
-    }
-
-    static class MovieViewHolder extends RecyclerView.ViewHolder {
-        private final ImageView imageViewPoster;
-        private final TextView textViewRating;
-
-        public MovieViewHolder(@NonNull View itemView) {
-            super(itemView);
-            imageViewPoster = itemView.findViewById(R.id.imageViewPoster);
-            textViewRating = itemView.findViewById(R.id.textViewRating);
-        }
     }
 }
